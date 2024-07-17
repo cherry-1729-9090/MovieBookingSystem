@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Button, Input, Checkbox } from 'antd';
+import { Link, Navigate } from 'react-router-dom'; // import Navigate
 import axios from 'axios';
 const onFinish = (values) => {
     console.log('Success:', values);
@@ -104,7 +105,14 @@ function Login() {
                     </Button>
                 </Form.Item>
                 <Form.Item>
-                    Don't have an account?<a href="/register">Register</a>
+                    <p>
+                        Don't have an account?<Link to="/register">Register</Link>
+                    </p>
+                </Form.Item>
+                <Form.Item>
+                    <p>
+                        Forgot your password?<Link to="/forgot-password">Reset Password</Link>
+                    </p>
                 </Form.Item>
             </Form>
         </div>
