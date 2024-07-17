@@ -1,25 +1,27 @@
+import { Form, Input, Radio, Button } from 'antd';
 import React from 'react';
-import { Form, Button, Input, Checkbox } from 'antd';
-import axios from 'axios';
-const onFinish = (values) => {
-    console.log('Success:', values);
-    // should actually use the backend url
-    axios.post('', {
-        body: {
-            email: values.email,
-            password: values.password,
+const axios = require('axios');
+
+function Signin() {
+    function onFinish(values) {
+        console.log('Success:', values);
+        const { userName, email, role, password } = values;
+        // should use the bakcend url
+        axios.post('', {
+            body: {
+                userName,
+                email,
+                role,
+                password
+            }
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
         }
-    }).then((res) => {
-        console.log(res);
-    }).catch((err) => {
-        console.log(err);
+        )
     }
-    )
 
-};
-
-
-function Login() {
     return (
         <div style={{
             width: '100vw',
@@ -48,12 +50,24 @@ function Login() {
                 initialValues={{
                     remember: true,
                 }}
-                onFinish={onFinish}
                 autoComplete="off"
                 layout='vertical'
+                onFinish={onFinish}
             >
                 <Form.Item>
-                    <h1>Login</h1>
+                    <h1>Signup</h1>
+                </Form.Item>
+
+                <Form.Item
+                    label='UserName'
+                    name='username'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        },
+                    ]}>
+                    <Input />
                 </Form.Item>
                 <Form.Item
                     label="Email"
@@ -68,7 +82,6 @@ function Login() {
                 >
                     <Input />
                 </Form.Item>
-
                 <Form.Item
                     label="Password"
                     name="password"
@@ -81,34 +94,34 @@ function Login() {
                 >
                     <Input.Password />
                 </Form.Item>
-
                 <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
+                    label="Role"
+                    name="role"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please select your role!',
+                        },
+                    ]}
                 >
-                    <Checkbox>Remember me</Checkbox>
+                    <Radio.Group>
+                        <Radio value={1}>Admin</Radio>
+                        <Radio value={2}>User</Radio>
+                    </Radio.Group>
                 </Form.Item>
-
-                <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
+                <Form.Item>
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>
                 </Form.Item>
                 <Form.Item>
-                    Don't have an account?<a href="/register">Register</a>
+                    <div>
+                        Already have an account? <a href="/login">Login</a>
+                    </div>
                 </Form.Item>
             </Form>
         </div>
     );
 }
 
-export default Login;
+export default Signin;
