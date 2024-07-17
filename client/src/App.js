@@ -7,10 +7,10 @@ import Signin from './pages/Signin';
 function App() {
   return (
     <div className="App">
-      {/* <Login/> */}
+      <Login/>
       {/* <Signin/> */}
       {/* <Forget/> */}
-      <Reset/>
+      {/* <Reset/> */}
     </div>
   );
 }
